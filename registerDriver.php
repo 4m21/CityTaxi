@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $lastName = $data['lastName'];
     $nic = $data['nic'];
     $licence = $data['licence'];
-    $accountStatus = $data['accountStatus'];
+    $accountStatus = "PENDING";
     $availability = $data['availability'];
 
     $conn = connectDB();

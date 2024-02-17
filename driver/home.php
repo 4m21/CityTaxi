@@ -42,8 +42,8 @@ if ($result->num_rows > 0) {
                     </a>
 
                     <div class="nav-manu">
-                        <a href="../passenger-home.html">Ride</a>
-                        <a href="home.html">Drive</a>
+                        <!-- <a href="../passenger-home.php">Ride</a>
+                        <a href="home.html">Drive</a> -->
                         <div class="animation start-home">
                         </div>
                     </div>

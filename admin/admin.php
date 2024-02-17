@@ -40,7 +40,7 @@ $result_passenger = $conn->query($query_passenger);
 
 	<title>City Taxi - Admin</title>
 
-	<style>
+	<!-- <style>
 		.activate-btn,
 		.reject-btn {
 			padding: 5px 10px;
@@ -56,7 +56,40 @@ $result_passenger = $conn->query($query_passenger);
 			background-color: #f44336;
 			color: white;
 		}
+	</style> -->
+
+	<style>
+		.activate-btn,
+		.reject-btn,
+		.disable-btn,
+		.enable-btn {
+			padding: 5px 10px;
+			cursor: pointer;
+		}
+
+		.activate-btn {
+			background-color: #4CAF50;
+			color: white;
+		}
+
+		.reject-btn {
+			background-color: #f44336;
+			color: white;
+		}
+
+		.disable-btn {
+			background-color: #f44336;
+			/* Red color for disable button */
+			color: white;
+		}
+
+		.enable-btn {
+			background-color: #4CAF50;
+			/* Green color for enable button */
+			color: white;
+		}
 	</style>
+
 </head>
 
 <body>
@@ -90,7 +123,7 @@ $result_passenger = $conn->query($query_passenger);
 			<li onclick="viewContent('content4')">
 				<a href="#">
 					<i class='bx bxs-user-detail'></i>
-					<span class="text">Passangers</span>
+					<span class="text">Passengers</span>
 				</a>
 			</li>
 			<!-- <li>
@@ -110,7 +143,7 @@ $result_passenger = $conn->query($query_passenger);
 			<li>
 				<a href="logout.php" class="logout">
 					<i class='bx bxs-log-out-circle'></i>
-					<span class="text" >Logout</span>
+					<span class="text">Logout</span>
 				</a>
 			</li>
 		</ul>
@@ -144,7 +177,7 @@ $result_passenger = $conn->query($query_passenger);
 		<!-- NAVBAR -->
 
 		<!-- MAIN -->
-		<main class="contents content1 active-content">
+		<main class="contents content1">
 			<div class="head-title">
 				<div class="left">
 					<h1>Dashboard</h1>
@@ -377,7 +410,7 @@ $result_passenger = $conn->query($query_passenger);
 
 
 
-		<main class="contents content3">
+		<main class="contents content3 active-content">
 			<div class="head-title">
 				<div class="left">
 					<h1>Drivers</h1>
@@ -445,6 +478,8 @@ $result_passenger = $conn->query($query_passenger);
 						<th>Account Status</th>
 						<th>Actions</th>
 					</tr>
+
+
 					<?php
 					while ($row = $result_driver->fetch_assoc()) {
 						echo '<tr>';
@@ -456,12 +491,37 @@ $result_passenger = $conn->query($query_passenger);
 						echo '<td>' . $row['PhoneNumber'] . '</td>';
 						echo '<td>' . $row['AccountStatus'] . '</td>';
 						echo '<td>';
-						echo '<button class="activate-btn" onclick="activateDriver(' . $row['DriverID'] . ')">Activate</button>';
-						echo '<button class="reject-btn" onclick="rejectDriver(' . $row['DriverID'] . ')">Reject</button>';
+
+						// Buttons based on AccountStatus
+						switch ($row['AccountStatus']) {
+							case 'ACTIVE':
+								// Show 'Disable' button
+								echo '<button class="disable-btn" onclick="disableDriver(' . $row['DriverID'] . ')">Disable</button>';
+								break;
+							case 'PENDING':
+								// Show 'Activate' and 'Reject' buttons
+								echo '<button class="activate-btn" onclick="activateDriver(' . $row['DriverID'] . ')">Activate</button>';
+								echo '<button class="reject-btn" onclick="rejectDriver(' . $row['DriverID'] . ')">Reject</button>';
+								break;
+							case 'DISABLED':
+								// Show 'Enable' button
+								echo '<button class="enable-btn" onclick="enableDriver(' . $row['DriverID'] . ')">Enable</button>';
+								break;
+							case 'REJECTED':
+								// Show 'Activate' button
+								echo '<button class="activate-btn" onclick="activateDriver(' . $row['DriverID'] . ')">Activate</button>';
+								break;
+							default:
+								// No action needed
+								break;
+						}
+
 						echo '</td>';
 						echo '</tr>';
 					}
 					?>
+
+
 				</table>
 
 			</div>
@@ -474,14 +534,14 @@ $result_passenger = $conn->query($query_passenger);
 		<main class="contents content4">
 			<div class="head-title">
 				<div class="left">
-					<h1>Passangers</h1>
+					<h1>Passengers</h1>
 					<ul class="breadcrumb">
 						<li>
 							<a href="#">Dashboard</a>
 						</li>
 						<li><i class='bx bx-chevron-right'></i></li>
 						<li>
-							<a class="active" href="#">Passangers</a>
+							<a class="active" href="#">Passengers</a>
 						</li>
 					</ul>
 				</div>
@@ -598,6 +658,52 @@ $result_passenger = $conn->query($query_passenger);
 					// Handle the server response if needed
 					console.log(data);
 					alert("Driver Profile Rejeted And Infomed Via Email");
+					// Reload the page or update the UI as needed
+					location.reload();
+				})
+				.catch(error => console.error('Error:', error));
+		}
+
+		function enableDriver(driverID) {
+			// Implement the logic to reject the driver's account
+			// Use AJAX or fetch API to send a request to the server to update the status and send a rejection email
+			fetch('enableDriver.php', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						driverID: driverID
+					}),
+				})
+				.then(response => response.json())
+				.then(data => {
+					// Handle the server response if needed
+					console.log(data);
+					alert("Driver Profile Enabled");
+					// Reload the page or update the UI as needed
+					location.reload();
+				})
+				.catch(error => console.error('Error:', error));
+		}
+
+		function disableDriver(driverID) {
+			// Implement the logic to reject the driver's account
+			// Use AJAX or fetch API to send a request to the server to update the status and send a rejection email
+			fetch('disableDriver.php', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						driverID: driverID
+					}),
+				})
+				.then(response => response.json())
+				.then(data => {
+					// Handle the server response if needed
+					console.log(data);
+					alert("Driver Profile Disabled");
 					// Reload the page or update the UI as needed
 					location.reload();
 				})

@@ -2,6 +2,11 @@
 session_start();
 include 'DbConnect.php'; // Include your database connection file
 
+if (isset($_SESSION['isAdmin'])) {
+    header('Location: admin.php'); // Redirect to login page if  logged in as admin
+    exit();
+}
+
 // Define variables to store username/email and password
 $username = $password = '';
 $error = '';
