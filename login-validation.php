@@ -31,11 +31,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $row = $passengerResult->fetch_assoc();
             $_SESSION['username'] = $row["Username"];
             // Valid login for passenger, redirect to passenger page
-            header('Location: passenger-home.html');
+            header('Location: passenger-home.php');
         }
     } else {
         // Invalid login, redirect to login page with error message
-        ('Location: login.html?error=Invalid credentials');
+        header ('Location: login.html?error=Invalid credentials');
+        // echo '<script>alert("Invalid credentials");</script>';
     }
 
 

@@ -1,16 +1,17 @@
 <?php
+session_start();
 include 'DbConnect.php';
 
 // Check if the user is logged in as an admin (you may need to implement proper authentication)
 // For demonstration purposes, I'm assuming a session variable named 'isAdmin'
 
-/*
-session_start();
+
+
 if (!isset($_SESSION['isAdmin']) || !$_SESSION['isAdmin']) {
-    header('Location: login.php'); // Redirect to login page if not logged in as admin
-    exit();
+	header('Location: index.php'); // Redirect to login page if not logged in as admin
+	exit();
 }
-*/
+
 $conn = connectDB();
 
 // Retrieve all drivers
@@ -107,9 +108,9 @@ $result_passenger = $conn->query($query_passenger);
 				</a>
 			</li>
 			<li>
-				<a href="#" class="logout">
+				<a href="logout.php" class="logout">
 					<i class='bx bxs-log-out-circle'></i>
-					<span class="text">Logout</span>
+					<span class="text" >Logout</span>
 				</a>
 			</li>
 		</ul>
@@ -602,7 +603,6 @@ $result_passenger = $conn->query($query_passenger);
 				})
 				.catch(error => console.error('Error:', error));
 		}
-
 	</script>
 
 
