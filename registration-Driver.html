@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Registration</title>
+    <link rel="stylesheet" href="registration.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+    
+        .message {
+            color: red;
+        }
+    
+        .available {
+            color: green;
+        }
+    
+        .checking {
+            color: gray;
+        }
+    
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+	<nav>
+        <div class="container nav_container">
+            <div class="nav_left">
+                <a href="index.html">
+                    <img src="imgs/City.png" alt="Book a Taxi">
+                </a>
+            
+                <div class="nav-manu">
+                    <a href="registration-Passanger.html">Register As Passenger</a>
+                    <!-- <a href="registration-Driver.html">Register As Driver</a> -->
+                    <div class="animation start-home">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- <ul class="nav_profile">
+                <li class="profile-img">
+                    <img src="imgs/profile_img.png" alt="My Profile">
+                    <i class="fa-solid fa-angle-down"></i>
+                </li>
+            </ul> -->
+            
+        </div>
+    </nav>
+
+
+    <section class="login">
+		<div class="login_box">
+			<div class="left">
+				<div class="contact">
+					<!-- <form action="registration.php" method="post">
+						<h3>Registration - Driver</h3>
+						<input type="text" placeholder="FIRST NAME" name="uname">
+						<input type="text" placeholder="LAST NAME" name="uname">
+						<input type="text" placeholder="PHONE NUMBERR" name="uname">
+						<input type="text" placeholder="USERNAME" name="uname">
+						<input type="text" placeholder="EMAIL" name="uname">
+						<input type="text" placeholder="NIC" name="uname">
+						<input type="text" placeholder="LICENCE" name="uname">
+						<button class="submit" name="submit">Register</button>
+					</form> -->
+
+                    <h3>Driver Registration</h2>
+                    <form id="registrationForm" onsubmit="submitForm(); return false;">
+                        <!-- <label for="username">Username:</label> -->
+                        <input type="text" id="username" name="username" placeholder="Username" required oninput="checkUsername()">
+                        <span id="usernameMessage" class="message hidden"></span>
+                        <br>
+                    
+                        <!-- <label for="email">Email:</label> -->
+                        <input type="email" id="email" name="email" placeholder="Email" required>
+                        <span id="emailMessage" class="message hidden"></span>
+                        <br>
+                    
+                        <!-- <label for="phoneNumber">Phone Number:</label> -->
+                        <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Phone Number" required>
+                        <span id="phoneMessage" class="message hidden"></span>
+                        <br>
+                    
+                        <!-- <label for="firstName">First Name:</label> -->
+                        <input type="text" id="firstName" name="firstName" placeholder="First Name" required>
+                        <br>
+                        
+                        <!-- <label for="lastName">Last Name:</label> -->
+                        <input type="text" id="lastName" name="lastName" placeholder="Last Name" required>
+                        <br>
+                    
+                        <!-- <label for="nic">NIC:</label> -->
+                        <input type="text" id="nic" name="nic" placeholder="NIC" required>
+                        <br>
+                    
+                        <!-- <label for="licence">Licence:</label> -->
+                        <input type="text" id="licence" name="licence" placeholder="Licence" required>
+                        <br>
+                    
+                        <button class="submit" name="submit" type="submit" id="registerButton" disabled>Register</button>
+                    </form>
+				</div>
+                
+			</div>
+			<div class="right">
+				<div class="right-text">
+					<h2>City Taxi</h2>
+					<h5>TAXI BOOKING WEBSITE</h5>
+				</div>
+				<div class="right-inductor"><img src="https://lh3.googleusercontent.com/fife/ABSRlIoGiXn2r0SBm7bjFHea6iCUOyY0N2SrvhNUT-orJfyGNRSMO2vfqar3R-xs5Z4xbeqYwrEMq2FXKGXm-l_H6QAlwCBk9uceKBfG-FjacfftM0WM_aoUC_oxRSXXYspQE3tCMHGvMBlb2K1NAdU6qWv3VAQAPdCo8VwTgdnyWv08CmeZ8hX_6Ty8FzetXYKnfXb0CTEFQOVF4p3R58LksVUd73FU6564OsrJt918LPEwqIPAPQ4dMgiH73sgLXnDndUDCdLSDHMSirr4uUaqbiWQq-X1SNdkh-3jzjhW4keeNt1TgQHSrzW3maYO3ryueQzYoMEhts8MP8HH5gs2NkCar9cr_guunglU7Zqaede4cLFhsCZWBLVHY4cKHgk8SzfH_0Rn3St2AQen9MaiT38L5QXsaq6zFMuGiT8M2Md50eS0JdRTdlWLJApbgAUqI3zltUXce-MaCrDtp_UiI6x3IR4fEZiCo0XDyoAesFjXZg9cIuSsLTiKkSAGzzledJU3crgSHjAIycQN2PH2_dBIa3ibAJLphqq6zLh0qiQn_dHh83ru2y7MgxRU85ithgjdIk3PgplREbW9_PLv5j9juYc1WXFNW9ML80UlTaC9D2rP3i80zESJJY56faKsA5GVCIFiUtc3EewSM_C0bkJSMiobIWiXFz7pMcadgZlweUdjBcjvaepHBe8wou0ZtDM9TKom0hs_nx_AKy0dnXGNWI1qftTjAg=w1920-h979-ft" alt=""></div>
+			</div>
+		</div>
+	</section>
+
+
+    <script src="checkAvailability.js"></script>
+    <script>
+        function checkUsername() {
+            const username = document.getElementById('username').value;
+            const usernameMessage = document.getElementById('usernameMessage');
+
+            if (username.length < 4 || !/^[\w]+$/.test(username)) {
+                usernameMessage.textContent = 'Invalid username';
+                usernameMessage.className = 'message';
+            } else {
+                usernameMessage.textContent = 'Checking Username';
+                usernameMessage.className = 'checking';
+
+                checkAvailabilityInDatabase('username', username).then(isAvailable => {
+                    if (isAvailable) {
+                        usernameMessage.textContent = 'Username available';
+                        usernameMessage.className = 'available';
+                    } else {
+                        usernameMessage.textContent = 'Username already exists';
+                        usernameMessage.className = 'message';
+                    }
+                });
+            }
+        }
+
+        function submitForm() {
+            const email = document.getElementById('email').value;
+            const phoneNumber = document.getElementById('phoneNumber').value;
+
+            checkAvailabilityInDatabase('email', email).then(isEmailAvailable => {
+                checkAvailabilityInDatabase('phone', phoneNumber).then(isPhoneAvailable => {
+                    const emailMessage = document.getElementById('emailMessage');
+                    const phoneMessage = document.getElementById('phoneMessage');
+
+                    if (!isEmailAvailable && !isPhoneAvailable) {
+                        emailMessage.textContent = 'This email already registered';
+                        phoneMessage.textContent = 'This phone number already registered';
+                    } else if (!isEmailAvailable) {
+                        emailMessage.textContent = 'This email already registered';
+                    } else if (!isPhoneAvailable) {
+                        phoneMessage.textContent = 'This phone number already registered';
+                    } else {
+                        const registrationData = {
+                            username: document.getElementById('username').value,
+                            email: email,
+                            phoneNumber: phoneNumber,
+                            firstName: document.getElementById('firstName').value,
+                            lastName: document.getElementById('lastName').value,
+                            nic: document.getElementById('nic').value,
+                            licence: document.getElementById('licence').value,
+                            accountStatus: 'PENDING_VERIFICATION',
+                            availability: 'INACTIVE'
+                        };
+
+                        fetch('registerDriver.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(registrationData),
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                console.log(data); // Log the server response
+                                alert('Registration successful!\n You will recive a confirmation email once your account is verified');
+                                //redirect to login page
+                                window.location.href = 'login.html';
+
+                            })
+                            .catch(error => console.error('Error:', error));
+                    }
+                });
+            });
+        }
+
+        document.addEventListener('input', function () {
+            const registerButton = document.getElementById('registerButton');
+            const allInputs = document.querySelectorAll('input[required]');
+            const isFormValid = Array.from(allInputs).every(input => input.value.trim() !== '');
+            registerButton.disabled = !isFormValid;
+        });
+    </script>
+</body>
+</html>
