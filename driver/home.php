@@ -102,7 +102,8 @@ if ($result->num_rows > 0) {
         </section>
     </div>
 
-    <a href="add_vehicle.php">Add Vehicle</a>
+    <a href="update_vehicle.php">Update Vehicle</a>
+    <a href="logout.php">Logout</a>
     <script src="driver_dashboard.js"></script>
 
     <script>

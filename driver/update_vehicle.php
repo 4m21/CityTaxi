@@ -26,20 +26,21 @@ $message = ''; // Initialize message variable
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Assuming driverID is stored in a session variable named 'DriverID'
 
-    $conn = connectDB();
+    // $conn = connectDB();
 
     // Retrieve the form submission data
-    $model = $_POST['model'];
+    $vehicleModel = $_POST['vehicleModel'];
     $vehicleNumber = $_POST['vehicleNumber'];
 
     if ($isVehicleRegistered) {
         // Driver ID exists, update the existing record
         $stmt = $conn->prepare('UPDATE vehicles SET Model = ?, VehicleNumber = ? WHERE DriverID = ?');
-        $stmt->bind_param('ssi', $model, $vehicleNumber, $DriverID);
+        $stmt->bind_param('ssi', $vehicleModel, $vehicleNumber, $DriverID);
         $stmt->execute();
 
         if ($stmt->affected_rows > 0) {
             $message = 'Vehicle updated successfully.';
+            // echo "<script>alert('Vehicle updated successfully.')</script>";
         } else {
             $message = 'Failed to update vehicle.';
         }
@@ -47,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         // Driver ID does not exist, insert a new record
         $stmt = $conn->prepare('INSERT INTO vehicles (DriverID, Model, VehicleNumber) VALUES (?, ?, ?)');
-        $stmt->bind_param('iss', $DriverID, $model, $vehicleNumber);
+        $stmt->bind_param('iss', $DriverID, $vehicleModel, $vehicleNumber);
         $stmt->execute();
 
         if ($stmt->affected_rows > 0) {
@@ -61,8 +62,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     closeDB($conn);
 
     // Redirect to a different page to avoid form resubmission
-    header('Location: success.php');
-    exit(); // Make sure to exit after the redirect
+    // header('Location: home.php');
+    // exit(); // Make sure to exit after the redirect
 }
 ?>
 
@@ -77,16 +78,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
-    <h2>Add Vehicle</h2>
+    <h2>Update Vehicle</h2>
     <?php echo $message; ?>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
-        <label for="model">Model:</label><br>
-        <input type="text" id="model" name="model" value="<?php echo htmlspecialchars($vehicleModel); ?>" required><br>
+        <label for="vehicleModel">Model:</label><br>
+        <input type="text" id="vehicleModel" name="vehicleModel" value="<?php echo htmlspecialchars($vehicleModel); ?>" required><br>
 
         <label for="vehicleNumber">Vehicle Number:</label><br>
         <input type="text" id="vehicleNumber" name="vehicleNumber" value="<?php echo htmlspecialchars($vehicleNumber); ?>" required><br><br>
 
-        <button type="submit">Add Vehicle</button>
+        <button type="submit">update Vehicle</button>
+        <button type="button" onclick="window.location.href='home.php'">Cancel</button>
     </form>
 
 

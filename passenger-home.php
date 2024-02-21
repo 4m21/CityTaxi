@@ -55,6 +55,7 @@ if ($result->num_rows > 0) {
                     <img src="imgs/profile_img.png" alt="My Profile">
                     <i class="fa-solid fa-angle-down"></i>
                 </li>
+                <li><a href="logout.php"><button>Logout</button></a></li>
             </ul>
 
         </div>

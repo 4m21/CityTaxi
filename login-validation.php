@@ -20,9 +20,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['username'] = $row["Username"];
 
         //change driver status to available
-        $accountStatus = 'UPDATE drivers SET Availability = "AVAILABLE" WHERE username = "' . $username . '"';
+        $accountStatus = 'UPDATE drivers SET Availability = "AVAILABLE" WHERE username = "' . $_SESSION['username'] . '"';
         $conn->query($accountStatus);
-        
+
         // Valid login for driver, redirect to driver page
         header('Location: /driver/home.php');
     } elseif ($driverResult->num_rows === 0) {
