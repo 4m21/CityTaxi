@@ -8,6 +8,7 @@ $result = $conn->query($user_info_sql);
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
     $LastName = $row['LastName'];
+    $_SESSION['DriverID'] = $row['DriverID'];
 } else {
     $LastName = "N/A";
 }
@@ -29,10 +30,11 @@ if ($result->num_rows > 0) {
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBo2ATVL4w-PeF4HKW8gnQG2XMMOUjr5-0&libraries=places" defer></script>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
-    
+
     <div class="driver-body">
         <nav>
             <div class="container nav_container">
@@ -68,8 +70,8 @@ if ($result->num_rows > 0) {
             <div class="sections">
                 <section class="driver-details" id="status-section">
                     <h2>Driver Status</h2>
-                    <p>Status: <span id="status">[AVAILABLE/BUSY]</span></p>
-                    <button type="button" id="toggleStatus" class="btn btn-outline-success" onclick="toggleStatus()">Toggle Status</button>
+                    <p>Status: <span id="status"></span></p>
+                    <button type="button" id="toggleStatus" class="btn btn-outline-success">Toggle Status</button>
                 </section>
 
                 <section class="driver-details" id="working-hours-section">
@@ -100,8 +102,44 @@ if ($result->num_rows > 0) {
         </section>
     </div>
 
+    <a href="add_vehicle.php">Add Vehicle</a>
     <script src="driver_dashboard.js"></script>
-    <script src="driver_dashboard.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            // Fetch initial status when the page loads
+            $.ajax({
+                url: 'getStatus.php',
+                type: 'POST',
+                data: {
+                    username: '<?php echo $username; ?>',
+                },
+                success: function(response) {
+                    $('#status').text(response);
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+
+            // Handle click event of the toggle button
+            $('#toggleStatus').click(function() {
+                $.ajax({
+                    url: 'update_Status.php',
+                    type: 'POST',
+                    data: {
+                        username: '<?php echo $username; ?>',
+                    },
+                    success: function(response) {
+                        $('#status').text(response);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            });
+        });
+    </script>
 
 </body>
 

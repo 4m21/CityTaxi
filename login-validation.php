@@ -18,6 +18,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($driverResult->num_rows === 1) {
         $row = $driverResult->fetch_assoc();
         $_SESSION['username'] = $row["Username"];
+
+        //change driver status to available
+        $accountStatus = 'UPDATE drivers SET Availability = "AVAILABLE" WHERE username = "' . $username . '"';
+        $conn->query($accountStatus);
+        
         // Valid login for driver, redirect to driver page
         header('Location: /driver/home.php');
     } elseif ($driverResult->num_rows === 0) {
@@ -35,30 +40,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     } else {
         // Invalid login, redirect to login page with error message
-        header ('Location: login.html?error=Invalid credentials');
+        header('Location: login.html?error=Invalid credentials');
         // echo '<script>alert("Invalid credentials");</script>';
     }
-
-
-    // // Check against 'Passengers' table
-    // $passengerStmt = $conn->prepare("SELECT * FROM Passengers WHERE (Username = ? OR Email = ?) AND Password = ? AND AccountStatus = 'ACTIVE'");
-    // $passengerStmt->bind_param("sss", $usernameOrEmail, $usernameOrEmail, $hashedPassword);
-    // $passengerStmt->execute();
-
-    // $passengerResult = $passengerStmt->get_result();
-
-    // if ($driverResult->num_rows === 1) {
-    //     // Valid login for driver, redirect to driver page
-    //     header('Location: driver.html');
-    // } elseif ($passengerResult->num_rows === 1) {
-    //     // Valid login for passenger, redirect to passenger page
-    //     header('Location: passenger.html');
-    // } else {
-    //     // Invalid login, redirect to login page with error message
-    //     header('Location: login.html?error=Invalid credentials');
-    //     // echo '<script>alert("Invalid credentials");</script>';
-
-    // }
+  
 
     $driverStmt->close();
     $passengerStmt->close();

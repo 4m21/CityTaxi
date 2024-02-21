@@ -22,13 +22,6 @@ function initMap() {
     });
 }
 
-// Function to toggle driver status
-function toggleStatus() {
-    const statusElement = document.getElementById('status');
-    const currentStatus = statusElement.innerText;
-    const newStatus = currentStatus === 'AVAILABLE' ? 'BUSY' : 'AVAILABLE';
-    statusElement.innerText = newStatus;
-}
 
 // Function to update working hours (mock implementation)
 function updateWorkingHours() {
