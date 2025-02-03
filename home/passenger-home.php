@@ -8,6 +8,7 @@ $result = $conn->query($user_info_sql);
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
     $LastName = $row['LastName'];
+    
 } else {
     $LastName = "N/A";
 }
@@ -123,6 +124,7 @@ if ($result->num_rows > 0) {
                 </div>
             </div>
 
+
             <div class="payment-option">
                 <button type="submit" class="btn btn-outline-secondary btn2">Pay Now</button>
             </div>
@@ -150,6 +152,9 @@ if ($result->num_rows > 0) {
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBo2ATVL4w-PeF4HKW8gnQG2XMMOUjr5-0&libraries=places&callback=initMap"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="main.js"></script>
+
+   
+
 </body>
 
 </html>
